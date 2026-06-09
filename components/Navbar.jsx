@@ -15,8 +15,8 @@ export default function Navbar() {
   const audioRef = useRef(null);
 
   const topBarSlides = [
-    { type: "text", content: "CASH ON DELIVERY AVAILABLE" },
-    { type: "music", track: "Pink + White", artist: "Frank Ocean" } // Change to your desired track
+    { type: "text", content: "FREE SHIPPING ON PREPAID ORDERS" },
+    { type: "music", track: "Adults Are Talking", artist: "The Strokes" } // Update to Street Sync's vibe
   ];
 
   // Auto-rotate the top bar every 4 seconds (unless music is playing)
@@ -131,14 +131,14 @@ export default function Navbar() {
           </div>
 
           <div className="text-xl md:text-2xl font-black uppercase tracking-tighter flex-shrink-0 flex-1 md:flex-none text-center md:text-left">
-            <Link href="/">Mortic™</Link>
+            <Link href="/">Street Sync™</Link>
           </div>
 
           <div className="hidden md:flex items-center justify-center gap-6 md:gap-8 text-sm font-bold uppercase flex-1">
-            <Link href="/shop" className="hover:opacity-60 transition-opacity">Shop</Link>
-            <Link href="/customs" className="hover:opacity-60 transition-opacity">Customs</Link>
-            <Link href="/collections" className="hover:opacity-60 transition-opacity">Collections</Link>
-            <Link href="/about" className="hover:opacity-60 transition-opacity">About Us</Link>
+            <Link href="/shop/tees" className="hover:opacity-60 transition-opacity">Tees</Link>
+            <Link href="/shop/hoodies" className="hover:opacity-60 transition-opacity">Hoodies</Link>
+            <Link href="/collections/sunburn" className="hover:opacity-60 transition-opacity">Collabs</Link>
+            <Link href="/club" className="hover:opacity-60 transition-opacity">The Club</Link>
           </div>
 
           <div className="flex items-center justify-end gap-5 flex-shrink-0 w-[80px] md:w-auto">
@@ -165,10 +165,10 @@ export default function Navbar() {
         </div>
         
         <div className="flex flex-col p-6 gap-6 text-3xl font-black uppercase tracking-tighter text-black">
-          <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
-          <Link href="/customs" onClick={() => setIsMobileMenuOpen(false)}>Customs</Link>
-          <Link href="/collections" onClick={() => setIsMobileMenuOpen(false)}>Collections</Link>
-          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+          <Link href="/shop/tees" onClick={() => setIsMobileMenuOpen(false)}>Tees</Link>
+          <Link href="/shop/hoodies" onClick={() => setIsMobileMenuOpen(false)}>Hoodies</Link>
+          <Link href="/collections/sunburn" onClick={() => setIsMobileMenuOpen(false)}>Collabs</Link>
+          <Link href="/club" onClick={() => setIsMobileMenuOpen(false)}>The Club</Link>
           <Link href="/faqs" onClick={() => setIsMobileMenuOpen(false)}>FAQs</Link>
         </div>
         
@@ -213,7 +213,7 @@ export default function Navbar() {
           <div className="w-full mt-16 flex flex-col gap-6">
             <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Popular Searches</span>
             <div className="flex flex-wrap gap-3">
-              {['blond ring', 'hot wheels', 'oasis definitely maybe', 'custom blister pack', 'stranger things'].map((term) => (
+              {['oversized tee', 'zip-up hoodie', 'waffle full sleeve', 'baby tee', 'music money fashion'].map((term) => (
                 <button 
                   key={term} 
                   onClick={() => {
