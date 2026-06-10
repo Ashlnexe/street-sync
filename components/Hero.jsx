@@ -22,7 +22,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center mt-12 w-full max-w-7xl mx-auto">
 
         <h1 
-          className="text-[20vw] md:text-[16vw] font-black text-white uppercase tracking-tighter drop-shadow-2xl leading-none select-none origin-center"
+          className="text-[15vw] sm:text-[18vw] md:text-[16vw] font-black text-white uppercase tracking-tighter drop-shadow-2xl leading-none select-none origin-center"
           style={{ transform: "scaleX(1.1)" }}
         >
           SYNCED
