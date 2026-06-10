@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, Search, ShoppingBag, User, X, ArrowRight, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +11,8 @@ export default function Navbar() {
   const [isShopHovered, setIsShopHovered] = useState(false);
   const [isCollectionsHovered, setIsCollectionsHovered] = useState(false);
   const searchInputRef = useRef(null);
+  
+  const { toggleCart, cartCount } = useCart();
 
 
 
@@ -97,7 +100,14 @@ export default function Navbar() {
           <div className="flex items-center justify-end gap-4 md:gap-5 flex-shrink-0 w-[80px] md:w-auto">
             <User className="w-5 h-5 cursor-pointer hidden md:block hover:text-green-500 transition-colors" />
             <Search onClick={openSearch} className="w-5 h-5 cursor-pointer hover:text-green-500 transition-colors" />
-            <ShoppingBag className="w-5 h-5 cursor-pointer hover:text-green-500 transition-colors" />
+            <div className="relative cursor-pointer hover:text-green-500 transition-colors" onClick={toggleCart}>
+              <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1.5 -right-2 bg-green-500 text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </div>
           </div>
         </nav>
 

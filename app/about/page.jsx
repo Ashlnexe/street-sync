@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="w-full lg:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-gray-200 bg-[#f9f9f9]">
           <ArrowDownRight className="w-12 h-12 text-black mb-8" />
           <h2 className="text-3xl font-black uppercase tracking-tight mb-6 text-black">
-            Built in Jakarta. <br /> Shipped Worldwide.
+            Designed in the streets. <br /> Synced globally.
           </h2>
           <div className="text-sm text-gray-600 flex flex-col gap-4 leading-relaxed max-w-md">
             <p>

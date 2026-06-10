@@ -10,7 +10,7 @@ export default function ProductCard({ product, onQuickView, isSquare = false }) 
     <div className="group flex flex-col w-full relative">
       
       {/* Upper Half: Image & Badges (Links to product) */}
-      <div className={`relative w-full ${isSquare ? 'aspect-square' : 'aspect-[3/4]'} bg-[#f4f4f4] overflow-hidden`}>
+      <div className={`relative w-full ${isSquare ? 'aspect-square' : 'aspect-[3/4]'} bg-[#f4f4f4] overflow-hidden rounded-xl`}>
         <Link href={`/product/${slug}`} className="absolute inset-0 z-0 block">
           {image ? (
             <>
