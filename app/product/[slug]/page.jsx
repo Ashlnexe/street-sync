@@ -198,7 +198,7 @@ export default function ProductPage({ params }) {
                 <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
               </summary>
               <div className="pb-4 text-sm text-gray-600">
-                Keep away from harsh chemicals. Clean with a soft, dry cloth. Store in the provided Mortic pouch when not in use.
+                Keep away from harsh chemicals. Clean with a soft, dry cloth. Store in the provided StreetSync pouch when not in use.
               </div>
             </details>
 

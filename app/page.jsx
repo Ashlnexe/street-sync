@@ -12,6 +12,7 @@ import QuickViewModal from "@/components/QuickViewModal";
 import ShopTheLook from "@/components/ShopTheLook";
 import StickyBestSellers from "@/components/StickyBestSellers";
 import CategoryHeroReveal from "@/components/CategoryHeroReveal";
+import StreetSyncLoader from "@/components/StreetSyncLoader";
 import { products } from "@/data/products";
 
 export default function Page() {
@@ -81,6 +82,7 @@ export default function Page() {
       style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease" }}
       className="min-h-screen bg-white text-black flex flex-col"
     >
+      <StreetSyncLoader />
       <Navbar />
 
       <main className="flex-grow">

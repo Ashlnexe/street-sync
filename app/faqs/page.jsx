@@ -7,7 +7,7 @@ export default function FaqPage() {
     {
       category: "Shipping & Orders",
       questions: [
-        { q: "Do you ship worldwide?", a: "Yes. We are based in Jakarta, Indonesia, but we ship our pieces globally. Shipping costs are calculated at checkout." },
+        { q: "Do you ship worldwide?", a: "Yes. We are based in India, but we ship our pieces globally. Shipping costs are calculated at checkout." },
         { q: "How long does dispatch take?", a: "All in-stock orders are packed and shipped within 24-48 hours. Custom orders require additional build time." },
         { q: "Can I track my order?", a: "Absolutely. Once your order is dispatched, you will receive an email with your tracking number and a link to monitor its progress." }
       ]
@@ -15,7 +15,7 @@ export default function FaqPage() {
     {
       category: "Customs & Blister Packs",
       questions: [
-        { q: "How do I order a custom Hot Wheels keychain?", a: "For 1-of-1 bespoke pieces, click the 'Customs' link in our navigation or reach out to us directly via Instagram DM (@mortic.id). We will source the car and design the custom blister pack artwork for you." },
+        { q: "How do I order a custom Hot Wheels keychain?", a: "For 1-of-1 bespoke pieces, click the 'Customs' link in our navigation or reach out to us directly via Instagram DM (@streetsync.co). We will source the car and design the custom blister pack artwork for you." },
         { q: "Can I open the blister pack?", a: "You can, but the blister pack is designed as a collectible display piece. If you open it, the packaging cannot be resealed, and the item is no longer eligible for exchange." }
       ]
     },
@@ -68,7 +68,7 @@ export default function FaqPage() {
         <div className="mt-16 p-8 bg-[#f9f9f9] border border-gray-200 text-center flex flex-col items-center">
           <h3 className="text-lg font-black uppercase tracking-tight text-black mb-2">Still need help?</h3>
           <p className="text-sm text-gray-500 mb-6">We're real people. Reach out and we'll sort it out.</p>
-          <a href="mailto:support@mortic.id" className="bg-black text-white px-8 py-3 text-sm font-bold uppercase tracking-wider hover:bg-gray-800 transition">
+          <a href="mailto:support@streetsync.co" className="bg-black text-white px-8 py-3 text-sm font-bold uppercase tracking-wider hover:bg-gray-800 transition">
             Contact Support
           </a>
         </div>
