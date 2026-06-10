@@ -6,28 +6,31 @@ export default function Hero() {
   return (
     <section className="relative w-full h-screen bg-[#111] flex items-center justify-center flex-col overflow-hidden">
       
-      {/* Replace 'src' with a dark, moody streetwear lookbook photo */}
-      <div className="absolute inset-0 opacity-60 z-0">
-        <Image 
-          src="/products/product-73.jpeg"
-          alt="Street Sync Hero"
-          fill
-          className="object-cover object-center"
-          priority
-        />
+      {/* Hero Video Background */}
+      <div className="absolute inset-0 opacity-60 z-0 bg-black">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-full h-full object-cover object-center grayscale"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center mt-12">
-        {/* WearADHD relies heavily on lowercase, tight-tracking typography */}
-        <h1 className="text-5xl md:text-8xl font-black text-white lowercase tracking-tight drop-shadow-lg max-w-4xl leading-none">
-          all day, <br/> high decibels.
+
+        <h1 
+          className="text-[20vw] md:text-[16vw] font-black text-white uppercase tracking-tighter drop-shadow-2xl leading-none select-none origin-center"
+          style={{ transform: "scaleX(1.1)" }}
+        >
+          SYNCED
         </h1>
-        <p className="text-white text-sm md:text-base font-medium tracking-widest uppercase mb-4">
-          Music-Inspired Streetwear
-        </p>
+
         <Link 
           href="/shop" 
-          className="border-2 border-white text-white bg-transparent px-10 py-4 text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors duration-300"
+          className="border-2 border-white text-white bg-transparent px-10 py-4 text-sm font-bold uppercase tracking-wider hover:bg-green-600 hover:border-green-600 hover:text-white transition-colors duration-300"
         >
           Shop The Drop
         </Link>

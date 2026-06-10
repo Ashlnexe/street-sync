@@ -163,7 +163,7 @@ body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground selection:bg-green-500 selection:text-white;
   }
   html {
     @apply font-sans;

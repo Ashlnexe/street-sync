@@ -7,40 +7,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isShopHovered, setIsShopHovered] = useState(false);
+  const [isCollectionsHovered, setIsCollectionsHovered] = useState(false);
   const searchInputRef = useRef(null);
 
-  // --- TOP BAR CAROUSEL & AUDIO STATE ---
-  const [topBarIndex, setTopBarIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
 
-  const topBarSlides = [
-    { type: "text", content: "FREE SHIPPING ON PREPAID ORDERS" },
-    { type: "music", track: "Adults Are Talking", artist: "The Strokes" } // Update to Street Sync's vibe
-  ];
-
-  // Auto-rotate the top bar every 4 seconds (unless music is playing)
-  useEffect(() => {
-    if (isPlaying) return; // Don't auto-rotate away if they are listening to the song
-    
-    const interval = setInterval(() => {
-      setTopBarIndex((prev) => (prev + 1) % topBarSlides.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isPlaying, topBarSlides.length]);
-
-  const nextSlide = () => setTopBarIndex((prev) => (prev + 1) % topBarSlides.length);
-  const prevSlide = () => setTopBarIndex((prev) => (prev - 1 + topBarSlides.length) % topBarSlides.length);
-
-  const togglePlay = (e) => {
-    e.stopPropagation(); // Prevent the click from bubbling up
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   // --- SCROLL & MODAL LOGIC ---
   useEffect(() => {
@@ -70,64 +41,31 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Hidden Audio Element */}
-      <audio 
-        ref={audioRef} 
-        src="/pink-white-snippet.mp3" // Ensure this file is in your public/ folder
-        onEnded={() => setIsPlaying(false)}
-      />
+
 
       {/* ========================================== */}
       {/* MAIN NAVBAR                                */}
       {/* ========================================== */}
-      <header className={`fixed top-0 left-0 w-full z-40 transition-colors duration-300 ${
-          isScrolled ? "bg-white text-black border-b border-gray-200 shadow-sm" : "bg-transparent text-white"
+      <header 
+        className={`fixed top-0 left-0 w-full z-40 transition-colors duration-300 ${
+          isScrolled || isShopHovered || isCollectionsHovered ? "bg-white text-black border-b border-gray-200 shadow-sm" : "bg-transparent text-white"
         }`}
+        onMouseLeave={() => { setIsShopHovered(false); setIsCollectionsHovered(false); }}
       >
-        {/* Interactive Top Announcement Bar */}
-        <div className={`w-full bg-[#1a1a1a] text-white text-xs flex items-center justify-between px-4 transition-all duration-300 overflow-hidden ${
-            isScrolled ? "h-0 opacity-0" : "h-10 opacity-100"
+        {/* Mobile Announcement Ticker */}
+        <div className={`w-full bg-black text-white py-2.5 overflow-hidden whitespace-nowrap select-none border-b border-neutral-900 transition-all duration-300 ${
+            isScrolled ? "h-0 opacity-0 py-0 border-transparent" : "h-9 opacity-100"
           }`}
         >
-          <button onClick={prevSlide} className="p-2 hover:opacity-70 transition-opacity">
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
-          <div className="flex-1 h-full flex items-center justify-center overflow-hidden">
-            {topBarSlides[topBarIndex].type === "text" ? (
-              <span className="font-bold uppercase tracking-widest text-[10px] md:text-xs animate-in fade-in duration-500 text-center">
-                {topBarSlides[topBarIndex].content}
-              </span>
-            ) : (
-              /* The Music Player Slide */
-              <button 
-                onClick={togglePlay} 
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity animate-in fade-in duration-500 max-w-full overflow-hidden"
-              >
-                <div className={`w-2 h-2 rounded-full shrink-0 ${isPlaying ? "bg-red-500 animate-pulse" : "bg-gray-500"}`}></div>
-                
-                {/* Marquee effect for the song title so it "keeps moving" */}
-                <div className="relative flex overflow-hidden whitespace-nowrap w-[150px] md:w-[250px] mask-edges">
-                   <div className={`${isPlaying ? "animate-marquee" : ""} inline-block font-bold uppercase tracking-widest text-[10px] md:text-xs`}>
-                      <span className="mx-4">{topBarSlides[topBarIndex].track} · {topBarSlides[topBarIndex].artist}</span>
-                      <span className="mx-4">{topBarSlides[topBarIndex].track} · {topBarSlides[topBarIndex].artist}</span>
-                   </div>
-                </div>
-
-                {isPlaying ? <Pause className="w-3 h-3 shrink-0" /> : <Play className="w-3 h-3 shrink-0 ml-0.5" />}
-              </button>
-            )}
+          <div className="inline-block animate-pulse font-mono text-[10px] tracking-widest uppercase px-4 text-center w-full">
+            STREETSYNC // <span className="text-green-400">MOVE IN FREQUENCY</span> • SIGNAL ACTIVE
           </div>
-
-          <button onClick={nextSlide} className="p-2 hover:opacity-70 transition-opacity">
-            <ChevronRight className="w-4 h-4" />
-          </button>
         </div>
 
         {/* Main Nav Links (Transparent -> White on scroll) */}
         <nav className="flex items-center justify-between px-4 py-4 md:px-8">
           <div className="flex md:hidden flex-shrink-0 w-[80px]">
-            <Menu onClick={() => setIsMobileMenuOpen(true)} className="w-6 h-6 cursor-pointer hover:opacity-60 transition-opacity" />
+            <Menu onClick={() => setIsMobileMenuOpen(true)} className="w-6 h-6 cursor-pointer hover:text-green-500 transition-colors" />
           </div>
 
           <div className="text-xl md:text-2xl font-bold uppercase tracking-tight flex-shrink-0 flex-1 md:flex-none text-center md:text-left">
@@ -135,18 +73,117 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center justify-center gap-6 md:gap-8 text-sm font-medium uppercase flex-1">
-            <Link href="/shop/tees" className="hover:opacity-60 transition-opacity">Tees</Link>
-            <Link href="/shop/hoodies" className="hover:opacity-60 transition-opacity">Hoodies</Link>
-            <Link href="/collections/sunburn" className="hover:opacity-60 transition-opacity">Collabs</Link>
-            <Link href="/club" className="hover:opacity-60 transition-opacity">The Club</Link>
+            <div 
+              onMouseEnter={() => { setIsShopHovered(true); setIsCollectionsHovered(false); }}
+              className="py-4"
+            >
+              <Link href="/shop" className={`transition-colors ${isShopHovered ? 'border-b-2 border-black pb-1' : 'hover:text-green-500'}`}>
+                Shop
+              </Link>
+            </div>
+            <Link href="/women" onMouseEnter={() => { setIsShopHovered(false); setIsCollectionsHovered(false); }} className="hover:text-green-500 transition-colors py-4">Women</Link>
+            <div 
+              onMouseEnter={() => { setIsCollectionsHovered(true); setIsShopHovered(false); }}
+              className="py-4"
+            >
+              <Link href="/collections" className={`transition-colors ${isCollectionsHovered ? 'border-b-2 border-black pb-1' : 'hover:text-green-500'}`}>
+                Collections
+              </Link>
+            </div>
+            <Link href="/about" onMouseEnter={() => { setIsShopHovered(false); setIsCollectionsHovered(false); }} className="hover:text-green-500 transition-colors py-4">About Us</Link>
+            <Link href="/faqs" onMouseEnter={() => { setIsShopHovered(false); setIsCollectionsHovered(false); }} className="hover:text-green-500 transition-colors py-4">Faqs</Link>
           </div>
 
-          <div className="flex items-center justify-end gap-5 flex-shrink-0 w-[80px] md:w-auto">
-            <User className="w-5 h-5 cursor-pointer hidden md:block hover:opacity-60 transition-opacity" />
-            <Search onClick={openSearch} className="w-5 h-5 cursor-pointer hidden sm:block hover:opacity-60 transition-opacity" />
-            <ShoppingBag className="w-5 h-5 cursor-pointer hover:opacity-60 transition-opacity" />
+          <div className="flex items-center justify-end gap-4 md:gap-5 flex-shrink-0 w-[80px] md:w-auto">
+            <User className="w-5 h-5 cursor-pointer hidden md:block hover:text-green-500 transition-colors" />
+            <Search onClick={openSearch} className="w-5 h-5 cursor-pointer hover:text-green-500 transition-colors" />
+            <ShoppingBag className="w-5 h-5 cursor-pointer hover:text-green-500 transition-colors" />
           </div>
         </nav>
+
+        {/* Shop Mega Menu Dropdown */}
+        <div 
+          className={`absolute top-full left-0 w-full bg-[#f8f8f8] border-t border-gray-200 transition-all duration-300 overflow-hidden ${
+            isShopHovered ? "max-h-[600px] opacity-100 visible" : "max-h-0 opacity-0 invisible"
+          }`}
+        >
+          <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 flex gap-12 text-black">
+            {/* Left Links */}
+            <div className="flex gap-16 min-w-[300px]">
+              <div className="flex flex-col gap-4">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Clothing</span>
+                <Link href="/shop/t-shirts" className="text-sm font-medium hover:text-green-500 lowercase">t-shirts</Link>
+                <Link href="/shop/shirts" className="text-sm font-medium hover:text-green-500 lowercase">shirts</Link>
+                <Link href="/shop/vests" className="text-sm font-medium hover:text-green-500 lowercase">vests</Link>
+                <Link href="/shop/hoodies" className="text-sm font-medium hover:text-green-500 lowercase">hoodies</Link>
+                <Link href="/shop/baby-tees" className="text-sm font-medium hover:text-green-500 lowercase">baby tees</Link>
+                <Link href="/shop/full-sleeve" className="text-sm font-medium hover:text-green-500 lowercase">full sleeve</Link>
+                <Link href="/shop/pants" className="text-sm font-medium hover:text-green-500 lowercase">pants</Link>
+              </div>
+              <div className="flex flex-col gap-4">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">More</span>
+                <Link href="/shop/best-sellers" className="text-sm font-medium hover:text-green-500 lowercase">best sellers</Link>
+                <Link href="/shop/basics" className="text-sm font-medium hover:text-green-500 lowercase">basics</Link>
+                <Link href="/shop/back-in-stock" className="text-sm font-medium hover:text-green-500 lowercase">back in stock</Link>
+                <Link href="/shop/special-prices" className="text-sm font-medium hover:text-green-500 lowercase">special prices</Link>
+                <Link href="/shop/bundles" className="text-sm font-medium hover:text-green-500 lowercase">bundles</Link>
+              </div>
+            </div>
+
+            {/* Right Images */}
+            <div className="flex-1 grid grid-cols-3 gap-6">
+              <Link href="/shop/t-shirts" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-10.jpeg" alt="T-Shirts" className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">T-Shirts</span>
+              </Link>
+              <Link href="/shop/hoodies" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-15.jpeg" alt="Hoodies" className="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">Hoodies</span>
+              </Link>
+              <Link href="/shop/women" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-62.jpeg" alt="Woman" className="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">Woman</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Collections Mega Menu Dropdown */}
+        <div 
+          className={`absolute top-full left-0 w-full bg-[#f8f8f8] border-t border-gray-200 transition-all duration-300 overflow-hidden ${
+            isCollectionsHovered ? "max-h-[600px] opacity-100 visible" : "max-h-0 opacity-0 invisible"
+          }`}
+        >
+          <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 flex gap-12 text-black">
+            {/* 3 Image Columns */}
+            <div className="grid grid-cols-3 gap-6 w-full max-w-4xl">
+              <Link href="/collections/fall-winter" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-45.jpeg" alt="Fall/Winter" className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">Fall/Winter</span>
+              </Link>
+              <Link href="/collections/sunburn" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-5.jpeg" alt="Sunburn X Street Sync" className="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">Sunburn X Street Sync</span>
+              </Link>
+              <Link href="/collections/spring-summer" className="group flex flex-col gap-3">
+                <div className="relative aspect-square w-full bg-white overflow-hidden">
+                  <img src="/products/product-6.jpeg" alt="Spring/Summer" className="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span className="text-xl font-black uppercase tracking-tight">Spring/Summer</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* ========================================== */}
@@ -168,7 +205,7 @@ export default function Navbar() {
           <Link href="/shop/tees" onClick={() => setIsMobileMenuOpen(false)}>Tees</Link>
           <Link href="/shop/hoodies" onClick={() => setIsMobileMenuOpen(false)}>Hoodies</Link>
           <Link href="/collections/sunburn" onClick={() => setIsMobileMenuOpen(false)}>Collabs</Link>
-          <Link href="/club" onClick={() => setIsMobileMenuOpen(false)}>The Club</Link>
+          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
           <Link href="/faqs" onClick={() => setIsMobileMenuOpen(false)}>FAQs</Link>
         </div>
         

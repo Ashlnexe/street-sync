@@ -15,12 +15,12 @@ export default function StickyBestSellers() {
         
         {/* Left Side: Sticky Header */}
         <div className="lg:w-1/2 relative">
-          <div className="lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center text-center p-12 lg:p-8">
-            <h2 className="text-5xl md:text-7xl font-bold uppercase text-black mb-4 tracking-tight">
-              Best Sellers
+          <div className="flex flex-col items-center text-center pt-12 pb-6 px-4 lg:sticky lg:top-0 lg:h-screen lg:justify-center">
+            <h2 className="text-3xl md:text-5xl lg:text-7xl font-black uppercase tracking-tight text-black">
+              BEST SELLERS
             </h2>
-            <p className="text-sm md:text-base font-medium text-gray-600 tracking-wide lowercase">
-              most loved pieces. all in one place.
+            <p className="text-neutral-500 text-xs lg:text-base font-normal mt-2 tracking-wide lowercase">
+              move in frequency. all in one place.
             </p>
           </div>
         </div>

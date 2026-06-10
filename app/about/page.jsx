@@ -24,10 +24,10 @@ export default function AboutPage() {
           </h2>
           <div className="text-sm text-gray-600 flex flex-col gap-4 leading-relaxed max-w-md">
             <p>
-              Mortic started with a simple idea: the things you carry every day should mean something. We didn't want standard merch. We wanted statement pieces.
+              Street Sync started with a simple idea: the things you wear every day should mean something. We didn't want standard blanks. We wanted statement pieces.
             </p>
             <p>
-              From custom 1-of-1 Hot Wheels blister packs featuring hand-drawn album art, to premium, tarnish-free stainless steel rings inspired by the music that shaped us—every piece is assembled, sealed, and polished with intent.
+              From oversized heavyweight tees to custom-milled hoodies, every garment is designed, cut, and sewn with intent. We merge modern minimal aesthetics with street culture. Always in sync with the pulse.
             </p>
             <p className="font-bold text-black uppercase tracking-widest mt-4">
               We are real people. We care about the details.
@@ -39,8 +39,8 @@ export default function AboutPage() {
         <div className="w-full lg:w-1/2 p-4 md:p-8 bg-white flex flex-col gap-4">
           <div className="w-full aspect-video bg-gray-100 relative overflow-hidden border border-gray-200">
             <Image 
-              src="/bus-drawing.png" 
-              alt="Workshop Photo" 
+              src="/products/product-73.jpeg" 
+              alt="Editorial 1" 
               fill 
               className="object-cover" 
             />
@@ -48,16 +48,16 @@ export default function AboutPage() {
           <div className="flex gap-4 h-64">
             <div className="w-1/2 bg-gray-100 relative overflow-hidden border border-gray-200">
               <Image 
-                src="/bus-back.png" 
-                alt="Detail 1" 
+                src="/products/product-15.jpeg" 
+                alt="Editorial 2" 
                 fill 
                 className="object-cover" 
               />
             </div>
             <div className="w-1/2 bg-gray-100 relative overflow-hidden border border-gray-200">
               <Image 
-                src="/bus-front.jpg" 
-                alt="Detail 2" 
+                src="/products/product-62.jpeg" 
+                alt="Editorial 3" 
                 fill 
                 className="object-cover" 
               />

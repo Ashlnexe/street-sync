@@ -28,7 +28,7 @@ export default function CartDrawer() {
       />
 
       {/* Slide-out Drawer */}
-      <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 z-10">
+      <div className="relative w-[90vw] sm:w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 z-10">
         
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -128,7 +128,7 @@ export default function CartDrawer() {
             </p>
             <button 
               onClick={() => {
-                let message = "Hi Mortic! I would like to place an order:\n\n";
+                let message = "Hi Street Sync! I would like to place an order:\n\n";
                 cartItems.forEach((item, index) => {
                   message += `${index + 1}. ${item.product.title} (Size: ${item.size})\n`;
                   message += `   Qty: ${item.quantity} x ${formatPrice(item.product.price)}\n`;

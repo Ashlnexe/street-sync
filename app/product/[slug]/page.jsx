@@ -194,31 +194,31 @@ export default function ProductPage({ params }) {
           <div className="border-t border-gray-200">
             <details className="group cursor-pointer border-b border-gray-200">
               <summary className="flex items-center justify-between py-4 text-sm font-bold uppercase tracking-wider text-black list-none [&::-webkit-details-marker]:hidden">
+                Material & Fit
+                <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pb-4 text-sm text-gray-600">
+                Heavyweight 280GSM cotton blend. Boxy, oversized drop-shoulder fit engineered for movement and layering.
+              </div>
+            </details>
+
+            <details className="group cursor-pointer border-b border-gray-200">
+              <summary className="flex items-center justify-between py-4 text-sm font-bold uppercase tracking-wider text-black list-none [&::-webkit-details-marker]:hidden">
                 Care Instructions
                 <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
               </summary>
               <div className="pb-4 text-sm text-gray-600">
-                Keep away from harsh chemicals. Clean with a soft, dry cloth. Store in the provided Mortic pouch when not in use.
+                Machine wash cold inside out. Do not iron directly on puff print graphics. Tumble dry low or hang dry to preserve the intended shape.
               </div>
             </details>
 
             <details className="group cursor-pointer border-b border-gray-200">
               <summary className="flex items-center justify-between py-4 text-sm font-bold uppercase tracking-wider text-black list-none [&::-webkit-details-marker]:hidden">
-                Disclaimer
+                Shipping & Returns
                 <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
               </summary>
               <div className="pb-4 text-sm text-gray-600">
-                Each piece is custom-packaged. Slight variations in the blister pack artwork may occur.
-              </div>
-            </details>
-
-            <details className="group cursor-pointer border-b border-gray-200">
-              <summary className="flex items-center justify-between py-4 text-sm font-bold uppercase tracking-wider text-black list-none [&::-webkit-details-marker]:hidden">
-                Exchange Policy
-                <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <div className="pb-4 text-sm text-gray-600">
-                We accept exchanges within 7 days if the blister packaging remains unopened and untampered with.
+                Free shipping on orders over ₹2000. We accept exchanges within 7 days of delivery on unworn, unwashed items with tags attached.
               </div>
             </details>
           </div>

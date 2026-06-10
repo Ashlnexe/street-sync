@@ -4,7 +4,7 @@ import { useState } from "react";
 import ProductCard from "./ProductCard";
 import QuickViewModal from "./QuickViewModal";
 
-export default function ProductSection({ title, products, tabs }) {
+export default function ProductSection({ title, subtitle, products, tabs }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   
   // Default to the first tab (usually "All") if tabs exist
@@ -18,31 +18,33 @@ export default function ProductSection({ title, products, tabs }) {
     : products;
 
   return (
-    <section className="w-full py-16 md:py-20 px-4 md:px-8 border-b border-gray-200">
+    <section className="w-full py-12 md:py-20 px-4 md:px-8">
       
       {/* Title Header */}
-      <div className="flex items-center justify-between mb-16 md:mb-24">
-        <h2 className="text-2xl md:text-3xl font-bold uppercase text-black leading-none">
+      <div className="flex flex-col items-center text-center pt-12 pb-6 px-4">
+        <h2 className="text-3xl font-black uppercase tracking-tight text-black">
           {title}
         </h2>
-        <Link href="/shop" className="hidden md:flex items-center justify-center text-sm font-medium border border-black/20 rounded-md px-8 py-2.5 hover:border-black transition-colors text-black lowercase">
-          view all
-        </Link>
+        {subtitle && (
+          <p className="text-neutral-500 text-xs font-normal mt-2 tracking-wide lowercase">
+            {subtitle}
+          </p>
+        )}
       </div>
 
       {/* ========================================== */}
       {/* THE SELECTION COMPONENT (Clickable Tabs)   */}
       {/* ========================================== */}
       {tabs && (
-        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar mb-8 pb-2">
+        <div className="flex items-center justify-center gap-3 overflow-x-auto no-scrollbar mb-8 pb-2">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2.5 text-[10px] md:text-xs font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
+              className={`px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-black border-gray-200 hover:border-black"
+                  ? "text-black border-b-2 border-black"
+                  : "text-gray-400 hover:text-black border-b-2 border-transparent"
               }`}
             >
               {tab.label}
@@ -52,7 +54,7 @@ export default function ProductSection({ title, products, tabs }) {
       )}
 
       {/* Product Grid */}
-      <div className="flex md:grid md:grid-cols-4 gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-4 px-4 md:px-0 md:mx-0">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-8 md:gap-4 pb-4">
         {displayProducts.map((product, idx) => (
           <ProductCard 
             key={idx} 
@@ -62,10 +64,10 @@ export default function ProductSection({ title, products, tabs }) {
         ))}
       </div>
 
-      {/* Mobile View All Link */}
-      <div className="md:hidden mt-6 flex justify-center w-full">
-        <Link href="/shop" className="text-xs font-bold uppercase tracking-widest underline underline-offset-4 hover:text-gray-500 text-black transition-colors">
-          View all
+      {/* Minimalist View All Button */}
+      <div className="w-full flex justify-center pt-8 pb-4">
+        <Link href="/shop" className="border border-black text-black text-xs font-medium uppercase tracking-widest px-10 py-3 rounded-md transition-all duration-200 active:bg-green-600 active:text-white active:border-green-600 hover:bg-black hover:text-white">
+          view all
         </Link>
       </div>
 

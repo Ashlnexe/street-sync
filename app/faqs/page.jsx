@@ -8,22 +8,28 @@ export default function FaqPage() {
       category: "Shipping & Orders",
       questions: [
         { q: "Do you ship worldwide?", a: "Yes. We are based in Jakarta, Indonesia, but we ship our pieces globally. Shipping costs are calculated at checkout." },
-        { q: "How long does dispatch take?", a: "All in-stock orders are packed and shipped within 24-48 hours. Custom orders require additional build time." },
+        { q: "How long does dispatch take?", a: "All in-stock orders are packed and shipped within 24-48 hours. Pre-order items will have specific shipping timelines listed on their product pages." },
         { q: "Can I track my order?", a: "Absolutely. Once your order is dispatched, you will receive an email with your tracking number and a link to monitor its progress." }
       ]
     },
     {
-      category: "Customs & Blister Packs",
+      category: "Sizing & Fit",
       questions: [
-        { q: "How do I order a custom Hot Wheels keychain?", a: "For 1-of-1 bespoke pieces, click the 'Customs' link in our navigation or reach out to us directly via Instagram DM (@mortic.id). We will source the car and design the custom blister pack artwork for you." },
-        { q: "Can I open the blister pack?", a: "You can, but the blister pack is designed as a collectible display piece. If you open it, the packaging cannot be resealed, and the item is no longer eligible for exchange." }
+        { q: "Are your items oversized?", a: "Yes, most of our tees and hoodies feature a relaxed, dropped-shoulder oversized fit. We recommend ordering your true size for our intended aesthetic, or sizing down if you prefer a standard fit." },
+        { q: "Do you restock sold-out items?", a: "We operate on a drop model. Most pieces are limited runs and rarely restock. Sign up for our newsletter or follow our socials to stay notified of upcoming drops." }
       ]
     },
     {
-      category: "Jewelry Care",
+      category: "Returns & Exchanges",
       questions: [
-        { q: "Will the rings turn my finger green?", a: "No. Our rings are crafted from premium stainless steel and finished with high-quality plating. They are hypoallergenic and designed not to tarnish or turn your skin green." },
-        { q: "Can I wear my ring in the shower?", a: "While our rings are highly durable, we recommend keeping them away from harsh chemicals, perfumes, and prolonged water exposure to maintain their maximum shine." }
+        { q: "Can I return my order?", a: "All sales are final. We only accept returns or exchanges for defective items or if the incorrect item was sent to you." },
+        { q: "What if my item is defective?", a: "Reach out to our support team within 7 days of delivery with photos of the defect, and we will sort it out immediately." }
+      ]
+    },
+    {
+      category: "Garment Care",
+      questions: [
+        { q: "How should I wash my garments?", a: "To maintain the heavy weight feel and premium prints, machine wash cold inside out with like colors. Hang dry or tumble dry low. Do not iron directly on the prints." }
       ]
     }
   ];

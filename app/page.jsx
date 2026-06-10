@@ -87,11 +87,11 @@ export default function Page() {
       <main className="flex-grow">
         <Hero />
 
-        <ProductSection title="New In" products={newInProducts} />
+        <ProductSection title="New In" subtitle="concrete rhythm. minimal form." products={newInProducts} />
 
 
         {/* END OF SEASON */}
-        <ProductSection title="End of Season Sale" products={endOfSeason} />
+        <ProductSection title="End of Season Sale" subtitle="last few sizes. move quick." products={endOfSeason} />
 
         {/* ========================================== */}
         {/* MARQUEE NAV - Category Selector             */}
