@@ -48,22 +48,12 @@ export default function MarqueeNav({ initialActive = 2 }) {
   };
 
   return (
-    <div style={{ width: "100%", overflow: "hidden", fontFamily: "'Inter', sans-serif" }}>
+    <div className="w-full overflow-hidden font-sans">
       {/* Marquee Section */}
-      <div
-        style={{
-          width: "100%",
-          overflow: "hidden",
-          padding: "14px 0",
-          whiteSpace: "nowrap",
-          display: "flex",
-          backgroundColor: "#000",
-        }}
-      >
+      <div className="w-full overflow-hidden py-3.5 whitespace-nowrap flex bg-black">
         <div
+          className="inline-flex w-max"
           style={{
-            display: "inline-flex",
-            // Increased duration for a slower scroll and updated animation name
             animation: "marquee-scroll-right 30s linear infinite",
           }}
         >
@@ -71,13 +61,7 @@ export default function MarqueeNav({ initialActive = 2 }) {
           {[...Array(6)].map((_, idx) => (
             <span
               key={idx}
-              style={{
-                fontSize: "1.25rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                paddingRight: "3rem",
-                color: "#fff",
-              }}
+              className="text-xl font-bold uppercase pr-12 text-white"
             >
               {MARQUEE_TEXT}
             </span>
