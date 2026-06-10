@@ -31,14 +31,14 @@ export default function QuickViewModal({ product, isOpen, onClose }) {
       />
 
       {/* Modal Box */}
-      <div className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative bg-white w-full h-full md:w-[800px] md:h-auto md:max-h-[90vh] md:rounded-xl overflow-y-auto flex flex-col md:flex-row shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
+          className="absolute top-4 right-4 z-20 flex items-center justify-center min-w-[44px] min-h-[44px] bg-gray-100 rounded-full hover:bg-gray-200 transition"
         >
-          <X className="w-4 h-4 text-black" />
+          <X className="w-5 h-5 text-black" />
         </button>
 
         {/* Left Side: Image */}

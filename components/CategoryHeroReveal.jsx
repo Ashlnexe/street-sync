@@ -22,6 +22,15 @@ export default function CategoryHeroReveal() {
       const text     = textRef.current;
       if (!wrapper || !category || !text) return;
 
+      if (window.innerWidth < 768) {
+        // Disable scroll animation on mobile
+        text.style.transform = `translate(-50%, -50%)`;
+        wordRefs.current.forEach((el) => {
+          if (el) el.style.opacity = 1;
+        });
+        return;
+      }
+
       const scrollY    = window.scrollY;
       const wrapperTop = wrapper.getBoundingClientRect().top + scrollY;
       const scrolledIn = Math.max(0, scrollY - wrapperTop);
@@ -72,54 +81,31 @@ export default function CategoryHeroReveal() {
      *  Phase 2: 100 → 190 vh scroll → words light up one by one
      *  Buffer:  190 → 200 vh → hero sits fully revealed before scrolling away
      */
-    <div ref={wrapperRef} style={{ position: "relative" }}>
+    <div ref={wrapperRef} className="relative w-full">
 
-      {/* ══ HERO — sticky, z-index 0, sits behind everything ══ */}
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          zIndex: 0,
-          overflow: "hidden",
-          background: "#0a0a0a",
-        }}
-      >
-        {/* Static full-cover image — no parallax */}
-        <div style={{ position: "absolute", inset: 0 }}>
+      {/* ══ HERO — sticky on desktop, relative on mobile ══ */}
+      <div className="relative md:sticky top-0 h-[60vh] md:h-screen z-0 overflow-hidden bg-[#0a0a0a]">
+        
+        {/* Static full-cover image */}
+        <div className="absolute inset-0">
           <Image
             src="/tyler-cars-hero.jpg"
             alt="Where your favourite music meets your wardrobe"
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "center center" }}
+            className="object-cover object-center"
           />
-          {/* Subtle dark veil so white text reads cleanly */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.40) 100%)",
-            }}
-          />
+          {/* Subtle dark veil */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/40" />
         </div>
 
-        {/* ── Tagline row
-             Initially positioned 38 vh BELOW the vertical centre.
-             The scroll handler raises it to exactly centre (translateY -50%)
-             as the curtain lifts, then freezes it there. ── */}
+        {/* ── Tagline row ── */}
         <div
           ref={textRef}
+          className="absolute top-1/2 left-1/2 flex flex-wrap md:flex-nowrap justify-center gap-1.5 md:gap-[0.32em] w-full px-4"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            // Initial transform — scroll handler overrides this on every tick
-            transform: "translate(-50%, calc(-50% + 50vh))",
-            display: "flex",
-            gap: "0 0.32em",
-            whiteSpace: "nowrap",
+            transform: "translate(-50%, -50%)",
             willChange: "transform",
           }}
         >
@@ -127,15 +113,9 @@ export default function CategoryHeroReveal() {
             <span
               key={i}
               ref={(el) => (wordRefs.current[i] = el)}
+              className="text-lg sm:text-2xl md:text-[clamp(1.1rem,2.6vw,2.3rem)] font-black tracking-wider uppercase text-white opacity-100 md:opacity-20"
               style={{
-                display: "inline-block",
                 fontFamily: "var(--font-hanken), 'Helvetica Neue', Arial, sans-serif",
-                fontSize: "clamp(1.1rem, 2.6vw, 2.3rem)",
-                fontWeight: 800,
-                letterSpacing: "0.03em",
-                textTransform: "uppercase",
-                color: "#fff",
-                opacity: 0.22,          // start dim; scroll handler brightens each word
                 willChange: "opacity",
               }}
             >
@@ -145,27 +125,16 @@ export default function CategoryHeroReveal() {
         </div>
       </div>
 
-      {/* ══ CATEGORY CURTAIN — z-index 10, scrolls away naturally ══ */}
+      {/* ══ CATEGORY CURTAIN ══ */}
       <div
         ref={categoryRef}
-        style={{
-          position: "relative",
-          zIndex: 10,
-          marginTop: "-100vh", // pull up to cover the hero completely at scroll=0
-        }}
+        className="relative z-10 mt-0 md:-mt-[100vh]"
       >
         <CategoryShowcase />
       </div>
 
-      {/* ══ SPACER — transparent; extends sticky budget for phase-2 highlighting ══ */}
-      <div
-        style={{
-          height: "200vh",
-          position: "relative",
-          zIndex: 1,
-          // no background → hero shows through
-        }}
-      />
+      {/* ══ SPACER for desktop scroll highlight phase ══ */}
+      <div className="hidden md:block h-[200vh] relative z-1" />
     </div>
   );
 }

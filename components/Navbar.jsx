@@ -212,11 +212,11 @@ export default function Navbar() {
         </div>
         
         <div className="flex flex-col p-6 gap-6 text-3xl font-black uppercase tracking-tighter text-black">
-          <Link href="/shop/tees" onClick={() => setIsMobileMenuOpen(false)}>Tees</Link>
-          <Link href="/shop/hoodies" onClick={() => setIsMobileMenuOpen(false)}>Hoodies</Link>
-          <Link href="/collections/sunburn" onClick={() => setIsMobileMenuOpen(false)}>Collabs</Link>
+          <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
+          <Link href="/women" onClick={() => setIsMobileMenuOpen(false)}>Women</Link>
+          <Link href="/collections" onClick={() => setIsMobileMenuOpen(false)}>Collections</Link>
           <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
-          <Link href="/faqs" onClick={() => setIsMobileMenuOpen(false)}>FAQs</Link>
+          <Link href="/faqs" onClick={() => setIsMobileMenuOpen(false)}>Faqs</Link>
         </div>
         
         <div className="absolute bottom-0 left-0 w-full p-6 bg-gray-50 border-t border-gray-200 flex justify-around">
