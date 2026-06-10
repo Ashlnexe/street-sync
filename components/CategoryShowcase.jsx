@@ -14,10 +14,10 @@ export default function CategoryShowcase() {
 
   return (
     <section className="w-full bg-[#f4f4f4] border-b border-gray-200">
-      <div className="flex flex-col lg:flex-row w-full lg:min-h-screen">
+      <div className="flex flex-col lg:flex-row w-full min-h-screen">
         
         {/* Left Side: Category List */}
-        <div className="lg:w-1/2 relative min-h-[50vh] lg:min-h-0">
+        <div className="w-full lg:w-1/2 relative min-h-[50vh] lg:min-h-0">
           
           {/* Section Label */}
           <div className="absolute top-6 left-6 lg:top-10 lg:left-10 flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function CategoryShowcase() {
         </div>
 
         {/* Right Side: Showcase Image */}
-        <div className="lg:w-1/2 relative bg-[#e5e5e5] min-h-[50vh] lg:min-h-screen overflow-hidden">
+        <div className="w-full lg:w-1/2 relative bg-[#e5e5e5] min-h-[50vh] lg:min-h-screen overflow-hidden">
           {CATEGORIES.map((cat) => (
             <div
               key={cat.id}
