@@ -12,7 +12,6 @@ import QuickViewModal from "@/components/QuickViewModal";
 import ShopTheLook from "@/components/ShopTheLook";
 import StickyBestSellers from "@/components/StickyBestSellers";
 import CategoryHeroReveal from "@/components/CategoryHeroReveal";
-import StreetSyncLoader from "@/components/StreetSyncLoader";
 import { products } from "@/data/products";
 
 export default function Page() {
@@ -39,7 +38,7 @@ export default function Page() {
       salePrice: "₹ 1,799.00",
       rating: "4.7",
       badges: ["BESTSELLER", "BACK IN STOCK"],
-      image: "",
+      image: "/products/product-50.jpeg",
     },
     {
       id: "g2",
@@ -49,7 +48,8 @@ export default function Page() {
       originalPrice: "₹ 2,199.00",
       rating: "4.7",
       badges: ["BESTSELLER", "ALL SEASON", "SAVE 23%"],
-      image: "",
+      image: "/products/product-53.jpeg",
+      hoverImage: "/products/product-53-hover.jpeg",
     },
     {
       id: "g3",
@@ -58,7 +58,7 @@ export default function Page() {
       salePrice: "₹ 1,499.00",
       rating: "4.7",
       badges: [],
-      image: "",
+      image: "/products/product-56.jpeg",
     },
     {
       id: "g4",
@@ -68,7 +68,7 @@ export default function Page() {
       originalPrice: "₹ 1,999.00",
       rating: "4.5",
       badges: ["BESTSELLER", "BACK IN STOCK", "SAVE 10%"],
-      image: "",
+      image: "/products/product-57.jpeg",
     }
   ];
 
@@ -82,7 +82,6 @@ export default function Page() {
       style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease" }}
       className="min-h-screen bg-white text-black flex flex-col"
     >
-      <StreetSyncLoader />
       <Navbar />
 
       <main className="flex-grow">

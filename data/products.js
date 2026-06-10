@@ -10,7 +10,7 @@ export const products = [
     badges: ["BESTSELLER", "LAST FEW SIZES"],
     tags: ["BESTSELLER"],
     category: "hoodies",
-    image: "", 
+    image: "/products/product-1.jpeg", 
     hoverImage: "",
   },
   { 
@@ -23,7 +23,7 @@ export const products = [
     badges: ["BESTSELLER"],
     tags: ["BESTSELLER"],
     category: "waffle",
-    image: "",
+    image: "/products/product-2.jpeg",
     hoverImage: "",
   },
   { 
@@ -36,8 +36,8 @@ export const products = [
     badges: ["BESTSELLER", "RESTOCKED"],
     tags: ["BESTSELLER"],
     category: "tees",
-    image: "",
-    hoverImage: "",
+    image: "/products/product-3.jpeg",
+    hoverImage: "/products/product-3-hover.jpeg",
   },
   { 
     id: 4,
@@ -49,7 +49,7 @@ export const products = [
     badges: ["BESTSELLER", "BACK IN STOCK"],
     tags: ["BESTSELLER"],
     category: "tees",
-    image: "",
+    image: "/products/product-45.jpeg",
     hoverImage: "",
   },
 
@@ -63,7 +63,7 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "tees",
-    image: "",
+    image: "/products/product-5.jpeg",
     hoverImage: "",
   },
   { 
@@ -75,7 +75,7 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "tees",
-    image: "",
+    image: "/products/product-6.jpeg",
     hoverImage: "",
   },
   { 
@@ -87,8 +87,8 @@ export const products = [
     badges: ["ALL SEASON"],
     tags: ["NEW IN"],
     category: "waffle",
-    image: "",
-    hoverImage: "",
+    image: "/products/product-7.jpeg",
+    hoverImage: "/products/product-7-hover.jpeg",
   },
   { 
     id: 8,
@@ -99,8 +99,8 @@ export const products = [
     badges: ["ALL SEASON"],
     tags: ["NEW IN"],
     category: "waffle",
-    image: "",
-    hoverImage: "",
+    image: "/products/product-8.jpeg",
+    hoverImage: "/products/product-8-hover.jpeg",
   },
   { 
     id: 9,
@@ -111,8 +111,8 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "tees",
-    image: "",
-    hoverImage: "",
+    image: "/products/product-9.jpeg",
+    hoverImage: "/products/product-9-hover.jpeg",
   },
   { 
     id: 10,
@@ -123,7 +123,7 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "hoodies",
-    image: "",
+    image: "/products/product-10.jpeg",
     hoverImage: "",
   },
   { 
@@ -135,7 +135,7 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "tees",
-    image: "",
+    image: "/products/product-11.jpeg",
     hoverImage: "",
   },
   { 
@@ -147,7 +147,7 @@ export const products = [
     badges: ["NEW IN"],
     tags: ["NEW IN"],
     category: "waffle",
-    image: "",
+    image: "/products/product-12.jpeg",
     hoverImage: "",
   },
 
@@ -162,7 +162,7 @@ export const products = [
     badges: ["SALE 40% OFF"],
     tags: ["END OF SEASON"],
     category: "hoodies",
-    image: "",
+    image: "/products/product-13.jpeg",
     hoverImage: "",
   },
   { 
@@ -175,7 +175,7 @@ export const products = [
     badges: ["SALE 40% OFF"],
     tags: ["END OF SEASON"],
     category: "tees",
-    image: "",
+    image: "/products/product-14.jpeg",
     hoverImage: "",
   },
   { 
@@ -188,8 +188,8 @@ export const products = [
     badges: ["SALE 40% OFF"],
     tags: ["END OF SEASON"],
     category: "waffle",
-    image: "",
-    hoverImage: "",
+    image: "/products/product-15.jpeg",
+    hoverImage: "/products/product-15-hover.jpeg",
   },
   { 
     id: 16,
@@ -201,7 +201,7 @@ export const products = [
     badges: ["SALE 45% OFF"],
     tags: ["END OF SEASON"],
     category: "hoodies",
-    image: "",
+    image: "/products/product-16.jpeg",
     hoverImage: "",
   },
   { 
@@ -214,7 +214,7 @@ export const products = [
     badges: ["SALE 40% OFF"],
     tags: ["END OF SEASON"],
     category: "tees",
-    image: "",
+    image: "/products/product-46.jpeg",
     hoverImage: "",
   },
   { 
@@ -227,7 +227,7 @@ export const products = [
     badges: ["SALE 40% OFF"],
     tags: ["END OF SEASON"],
     category: "waffle",
-    image: "",
+    image: "/products/product-47.jpeg",
     hoverImage: "",
   },
   { 
@@ -240,7 +240,7 @@ export const products = [
     badges: ["SALE 55% OFF"],
     tags: ["END OF SEASON"],
     category: "tees",
-    image: "",
+    image: "/products/product-48.jpeg",
     hoverImage: "",
   },
   { 
@@ -253,7 +253,7 @@ export const products = [
     badges: ["SALE 50% OFF"],
     tags: ["END OF SEASON"],
     category: "hoodies",
-    image: "",
+    image: "/products/product-49.jpeg",
     hoverImage: "",
   }
 ];

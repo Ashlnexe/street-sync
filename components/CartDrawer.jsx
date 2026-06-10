@@ -128,7 +128,7 @@ export default function CartDrawer() {
             </p>
             <button 
               onClick={() => {
-                let message = "Hi StreetSync! I would like to place an order:\n\n";
+                let message = "Hi Mortic! I would like to place an order:\n\n";
                 cartItems.forEach((item, index) => {
                   message += `${index + 1}. ${item.product.title} (Size: ${item.size})\n`;
                   message += `   Qty: ${item.quantity} x ${formatPrice(item.product.price)}\n`;

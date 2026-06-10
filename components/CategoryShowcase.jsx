@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const CATEGORIES = [
-  { id: 1, title: "TEES", imageLabel: "[Tees Category Image]" },
-  { id: 2, title: "HOODIES", imageLabel: "[Hoodies Category Image]" },
-  { id: 3, title: "ACCESSORIES", imageLabel: "[Accessories Category Image]" },
+  { id: 1, title: "TEES", image: "/products/product-60.jpeg" },
+  { id: 2, title: "HOODIES", image: "/products/product-61.jpeg" },
+  { id: 3, title: "ACCESSORIES", image: "/products/product-62.jpeg" },
 ];
 
 export default function CategoryShowcase() {
@@ -48,14 +49,22 @@ export default function CategoryShowcase() {
           {CATEGORIES.map((cat) => (
             <div
               key={cat.id}
-              className={`absolute inset-0 flex items-center justify-center text-gray-500 font-bold uppercase text-xl transition-opacity duration-700 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 activeId === cat.id ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
             >
-              {/* PLACEHOLDER: Replace this div with actual <img /> or Next.js <Image /> */}
-              <div className="w-full h-full bg-[#eaeaeb] flex items-center justify-center">
-                {cat.imageLabel}
-              </div>
+              {cat.image ? (
+                <Image 
+                  src={cat.image} 
+                  alt={cat.title} 
+                  fill 
+                  className="object-cover object-center" 
+                />
+              ) : (
+                <div className="w-full h-full bg-[#eaeaeb] flex items-center justify-center text-gray-500 font-bold uppercase text-xl">
+                  {cat.title}
+                </div>
+              )}
             </div>
           ))}
         </div>

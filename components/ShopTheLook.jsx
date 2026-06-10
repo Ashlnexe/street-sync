@@ -1,10 +1,16 @@
 import React from "react";
+import Image from "next/image";
 
-// Mock data generating 8 items for the 2 rows of 4
-const LOOKS = Array.from({ length: 8 }).map((_, i) => ({
-  id: i + 1,
-  imageLabel: `[Look 0${i + 1}]`,
-}));
+const LOOKS = [
+  { id: 1, image: "/looks/look-1.jpeg" },
+  { id: 2, image: "/looks/look-2.jpeg" },
+  { id: 3, image: "/looks/look-3.jpeg" },
+  { id: 4, video: "/looks/look-4.mp4" },
+  { id: 5, image: "" },
+  { id: 6, image: "" },
+  { id: 7, image: "" },
+  { id: 8, image: "" },
+];
 
 export default function ShopTheLook() {
   return (
@@ -21,10 +27,27 @@ export default function ShopTheLook() {
         {LOOKS.map((look) => (
           <div key={look.id} className="relative group cursor-pointer w-full aspect-[3/4] md:aspect-[9/16] bg-[#f4f4f4] overflow-hidden">
             
-            {/* PLACEHOLDER: Replace with your actual <img /> or Next.js <Image /> */}
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm font-bold uppercase transition-transform duration-700 group-hover:scale-105">
-              {look.imageLabel}
-            </div>
+            {look.video ? (
+              <video 
+                src={look.video} 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+            ) : look.image ? (
+              <Image 
+                src={look.image} 
+                alt={`Look ${look.id}`} 
+                fill 
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105" 
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm font-bold uppercase transition-transform duration-700 group-hover:scale-105">
+                [Look 0{look.id}]
+              </div>
+            )}
 
             {/* Optional: A subtle dark overlay to make white text pop */}
             <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />

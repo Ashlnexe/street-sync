@@ -12,7 +12,7 @@ export function CartProvider({ children }) {
   // Load cart from local storage on mount
   useEffect(() => {
     setMounted(true);
-    const savedCart = localStorage.getItem("streetsync_cart");
+    const savedCart = localStorage.getItem("mortic_cart");
     if (savedCart) {
       try {
         setCartItems(JSON.parse(savedCart));
@@ -25,7 +25,7 @@ export function CartProvider({ children }) {
   // Save cart to local storage on change
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem("streetsync_cart", JSON.stringify(cartItems));
+      localStorage.setItem("mortic_cart", JSON.stringify(cartItems));
     }
   }, [cartItems, mounted]);
 

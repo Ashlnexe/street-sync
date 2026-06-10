@@ -20,11 +20,11 @@ export default function AboutPage() {
         <div className="w-full lg:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-gray-200 bg-[#f9f9f9]">
           <ArrowDownRight className="w-12 h-12 text-black mb-8" />
           <h2 className="text-3xl font-black uppercase tracking-tight mb-6 text-black">
-            Designed in India. <br /> Shipped Worldwide.
+            Built in Jakarta. <br /> Shipped Worldwide.
           </h2>
           <div className="text-sm text-gray-600 flex flex-col gap-4 leading-relaxed max-w-md">
             <p>
-              StreetSync started with a simple idea: the things you carry every day should mean something. We didn't want standard merch. We wanted statement pieces.
+              Mortic started with a simple idea: the things you carry every day should mean something. We didn't want standard merch. We wanted statement pieces.
             </p>
             <p>
               From custom 1-of-1 Hot Wheels blister packs featuring hand-drawn album art, to premium, tarnish-free stainless steel rings inspired by the music that shaped us—every piece is assembled, sealed, and polished with intent.
