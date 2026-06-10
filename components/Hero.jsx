@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-[90vh] md:h-screen bg-[#111] flex items-center justify-center flex-col overflow-hidden">
+    <section className="relative w-full min-h-[90vh] md:h-screen bg-[#111] flex items-center justify-center flex-col overflow-x-hidden">
       
       {/* Hero Video Background */}
       <div className="absolute inset-0 opacity-60 z-0 bg-black">
