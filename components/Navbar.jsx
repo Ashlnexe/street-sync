@@ -130,11 +130,11 @@ export default function Navbar() {
             <Menu onClick={() => setIsMobileMenuOpen(true)} className="w-6 h-6 cursor-pointer hover:opacity-60 transition-opacity" />
           </div>
 
-          <div className="text-xl md:text-2xl font-black uppercase tracking-tighter flex-shrink-0 flex-1 md:flex-none text-center md:text-left">
+          <div className="text-xl md:text-2xl font-bold uppercase tracking-tight flex-shrink-0 flex-1 md:flex-none text-center md:text-left">
             <Link href="/">Street Sync™</Link>
           </div>
 
-          <div className="hidden md:flex items-center justify-center gap-6 md:gap-8 text-sm font-bold uppercase flex-1">
+          <div className="hidden md:flex items-center justify-center gap-6 md:gap-8 text-sm font-medium uppercase flex-1">
             <Link href="/shop/tees" className="hover:opacity-60 transition-opacity">Tees</Link>
             <Link href="/shop/hoodies" className="hover:opacity-60 transition-opacity">Hoodies</Link>
             <Link href="/collections/sunburn" className="hover:opacity-60 transition-opacity">Collabs</Link>

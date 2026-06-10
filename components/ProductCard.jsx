@@ -3,14 +3,14 @@ import { Star } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ProductCard({ product, onQuickView }) {
+export default function ProductCard({ product, onQuickView, isSquare = false }) {
   const { title, salePrice, originalPrice, rating, badges = [], slug, image, hoverImage } = product;
 
   return (
     <div className="group flex flex-col shrink-0 w-[75vw] md:w-full snap-start relative">
       
       {/* Upper Half: Image & Badges (Links to product) */}
-      <div className="relative w-full aspect-[3/4] bg-[#f4f4f4] overflow-hidden">
+      <div className={`relative w-full ${isSquare ? 'aspect-square' : 'aspect-[3/4]'} bg-[#f4f4f4] overflow-hidden`}>
         <Link href={`/product/${slug}`} className="absolute inset-0 z-0 block">
           {image ? (
             <>
@@ -34,9 +34,9 @@ export default function ProductCard({ product, onQuickView }) {
           )}
         </Link>
         
-        {/* Badges - Top Left Stack */}
+        {/* Badges - Bottom Left Stack */}
         {badges.length > 0 && (
-          <div className="absolute top-2 left-2 flex flex-col gap-1 z-10 pointer-events-none">
+          <div className="absolute bottom-2 left-2 flex flex-col gap-1 z-30 pointer-events-none">
             {badges.map((badge, idx) => (
               <span
                 key={idx}
@@ -48,15 +48,15 @@ export default function ProductCard({ product, onQuickView }) {
           </div>
         )}
 
-        {/* Hover Button - Bottom Anchored, Slide Up */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+        {/* Hover Button - Triggers Modal */}
+        <div className="absolute bottom-4 left-4 right-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 z-20">
           <button 
             onClick={(e) => {
               e.preventDefault(); // Prevents the link underneath from triggering
               e.stopPropagation();
               if (onQuickView) onQuickView(product);
             }}
-            className="w-full bg-white text-black font-black uppercase text-xs md:text-sm py-3.5 border-t border-gray-200 hover:bg-black hover:text-white transition-colors"
+            className="w-full bg-white text-black font-bold uppercase text-xs py-3 border border-gray-200 hover:border-black transition-colors shadow-sm"
           >
             Choose options
           </button>
@@ -65,25 +65,16 @@ export default function ProductCard({ product, onQuickView }) {
 
       {/* Lower Half: Product Details (Links to product) */}
       <Link href={`/product/${slug}`} className="pt-3 pb-2 block flex-grow">
-        <h3 className="text-sm md:text-base font-bold uppercase tracking-tight text-black truncate group-hover:underline underline-offset-4 decoration-2">
+        <h3 className="text-xs md:text-sm font-bold uppercase tracking-normal text-black truncate group-hover:underline underline-offset-4 decoration-2">
           {title}
         </h3>
         
         <div className="flex flex-col gap-1 mt-1">
           <div className="flex flex-wrap items-baseline gap-2">
-            <span className="text-sm md:text-base font-black text-black">{salePrice}</span>
+            <span className="text-xs md:text-sm font-medium text-gray-500">{salePrice}</span>
             {originalPrice && (
-              <span className="text-xs md:text-sm font-bold text-gray-500 line-through">{originalPrice}</span>
+              <span className="text-[10px] md:text-xs font-medium text-gray-400 line-through">{originalPrice}</span>
             )}
-          </div>
-          
-          <div className="flex items-center gap-1">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-black text-black" />
-              ))}
-            </div>
-            <span className="text-xs font-bold text-black">({rating || "5.0"})</span>
           </div>
         </div>
       </Link>
