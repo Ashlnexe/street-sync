@@ -1,11 +1,10 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-import { products } from "@/data/products";
+import { getProductsByTag } from "@/lib/products";
 
-export default function StickyBestSellers() {
-  // Grab best sellers from data
-  const bestSellers = products.filter(p => p.tags?.includes("BESTSELLER"));
-  
+export default async function StickyBestSellers() {
+  const bestSellers = await getProductsByTag("BESTSELLER");
+
   // Duplicate them so there are enough to demonstrate scrolling
   const scrollProducts = [...bestSellers, ...bestSellers, ...bestSellers];
 
@@ -33,7 +32,6 @@ export default function StickyBestSellers() {
                 key={idx} 
                 product={product} 
                 isSquare={true} 
-                // Since this section is bg-white, the default ProductCard bg-[#f4f4f4] will provide a nice contrast
               />
             ))}
           </div>

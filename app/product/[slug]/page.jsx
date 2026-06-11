@@ -3,7 +3,7 @@ import { useState, use, useEffect } from "react";
 import { Minus, Plus, Share, ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import { products } from "@/data/products";
+import { useProductBySlug } from "@/hooks/use-products";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 
@@ -15,13 +15,22 @@ export default function ProductPage({ params }) {
   
   const { addToCart } = useCart();
 
-  const product = products.find((p) => p.slug === slug);
+  const { product, loading } = useProductBySlug(slug);
 
   useEffect(() => {
     if (product?.sizes?.length > 0) {
       setSelectedSize(product.sizes[0]);
     }
   }, [product]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#f3f4f6] flex flex-col items-center justify-center">
+        <Navbar />
+        <p className="text-gray-400 text-sm uppercase tracking-widest">Loading...</p>
+      </main>
+    );
+  }
 
   if (!product) {
     return (

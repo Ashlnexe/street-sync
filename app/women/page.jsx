@@ -3,13 +3,12 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import QuickViewModal from "@/components/QuickViewModal";
-import { products as allProducts } from "@/data/products";
+import { useProducts } from "@/hooks/use-products";
 
 export default function WomenPage() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const displayProducts = allProducts; 
+  const { products: allProducts, loading } = useProducts();
 
   const handleQuickView = (product) => {
     setSelectedProduct(product);
@@ -34,11 +33,17 @@ export default function WomenPage() {
 
       {/* Product Grid */}
       <div className="px-4 md:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
-          {displayProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onQuickView={handleQuickView} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center h-64 text-gray-400 text-sm uppercase tracking-widest">
+            Loading...
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
+            {allProducts.map((product) => (
+              <ProductCard key={product.id} product={product} onQuickView={handleQuickView} />
+            ))}
+          </div>
+        )}
       </div>
 
       <QuickViewModal product={selectedProduct} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

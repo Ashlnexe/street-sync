@@ -12,7 +12,7 @@ import QuickViewModal from "@/components/QuickViewModal";
 import ShopTheLook from "@/components/ShopTheLook";
 import StickyBestSellers from "@/components/StickyBestSellers";
 import CategoryShowcase from "@/components/CategoryShowcase";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/use-products";
 
 export default function Page() {
   const [loaded, setLoaded] = useState(false);
@@ -25,6 +25,8 @@ export default function Page() {
   }, []);
 
   if (!mounted) return null;
+
+  const { products, loading } = useProducts();
 
   const newInProducts = products.filter(p => p.tags?.includes("NEW IN"));
   const bestSellers = products.filter(p => p.tags?.includes("BESTSELLER"));
