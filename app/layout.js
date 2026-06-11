@@ -31,9 +31,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${barlowCondensed.variable} ${hankenGrotesk.variable} h-full antialiased`}
+      className={`${inter.variable} ${barlowCondensed.variable} ${hankenGrotesk.variable} h-full antialiased overflow-x-hidden`}
     >
-      <body className="flex flex-col min-h-screen bg-white text-black font-sans w-full max-w-[100vw]">
+      <body className="flex flex-col min-h-screen bg-white text-black font-sans overflow-x-hidden w-full max-w-[100vw]">
         <CartProvider>
           <div className="relative w-full flex flex-col min-h-screen">
             <div className="flex-grow">
