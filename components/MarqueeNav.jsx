@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
-const MARQUEE_TEXT = "All Day, High Decibels™";
+const MARQUEE_TEXT = "STREETSYNC // MOVE IN FREQUENCY • SIGNAL ACTIVE";
 const CATEGORIES = [
   "Best Sellers",
   "Hoodies",
