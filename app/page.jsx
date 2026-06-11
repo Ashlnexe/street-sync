@@ -11,7 +11,7 @@ import ProductCard from "@/components/ProductCard";
 import QuickViewModal from "@/components/QuickViewModal";
 import ShopTheLook from "@/components/ShopTheLook";
 import StickyBestSellers from "@/components/StickyBestSellers";
-import CategoryHeroReveal from "@/components/CategoryHeroReveal";
+import CategoryShowcase from "@/components/CategoryShowcase";
 import { products } from "@/data/products";
 
 export default function Page() {
@@ -118,9 +118,9 @@ export default function Page() {
         <StickyBestSellers />
 
         {/* ========================================== */}
-        {/* CATEGORY → HERO REVEAL (curtain + parallax) */}
+        {/* CATEGORY SHOWCASE                          */}
         {/* ========================================== */}
-        <CategoryHeroReveal />
+        <CategoryShowcase />
 
         <QuickViewModal
           product={selectedProduct}
