@@ -24,16 +24,6 @@ const MAX_NAMED_SLICES = 4;
 /** Rolling window for the mix (days). */
 const periodDays = 7;
 
-/** Demo mix (sums to 100). Replace or pass `data` on the component. */
-const data = [
-    { category: "Apparel", share: 22 },
-    { category: "Accessories", share: 22 },
-    { category: "Footwear", share: 18 },
-    { category: "Home & living", share: 14 },
-    { category: "Beauty", share: 11 },
-    { category: "Outlet", share: 8 },
-    { category: "Sports", share: 5 }
-];
 
 /** Sort by share descending, keep top four, merge the rest into “Others” (max five slices). */
 function consolidateTopFourAndOthers(data) {
@@ -74,8 +64,11 @@ function buildSlices(data) {
 	return { chartConfig, pieData };
 }
 
-export function CategoryRankChart() {
-	const { chartConfig, pieData } = React.useMemo(() => buildSlices(consolidateTopFourAndOthers(data)), []);
+export function CategoryRankChart({ data = [] }) {
+	const { chartConfig, pieData } = React.useMemo(
+		() => buildSlices(consolidateTopFourAndOthers(data)),
+		[data]
+	);
 
 	return (
         <Card>

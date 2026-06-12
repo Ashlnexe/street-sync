@@ -7,29 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Delta, DeltaIcon, DeltaValue } from "@/components/delta";
 
-const stats = [{
-    label: "Total revenue",
-    value: "$284,920",
-    delta: 8.2,
-    hint: "vs prior 30 days",
-}, {
-    label: "Orders",
-    value: "1,842",
-    delta: 4.1,
-    hint: "vs prior 30 days",
-}, {
-    label: "Average order value",
-    value: "$154.60",
-    delta: -1.3,
-    hint: "vs prior 30 days",
-}, {
-    label: "Store conversion",
-    value: "3.06%",
-    delta: 0.6,
-    hint: "vs prior 30 days",
-}];
-
-export function DashboardStats() {
+export function DashboardStats({ stats = [] }) {
 	return (
         <>
             {stats.map((s) => (

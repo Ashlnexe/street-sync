@@ -19,7 +19,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Delta, DeltaIcon, DeltaValue } from "@/components/delta";
-import { revenueChartDemo } from "@/components/revenue-chart-data";
 import { ArrowRightIcon } from "lucide-react";
 
 // Recharts XAxis: `interval` is tick skip index (0 = all, 1 = every other, …).
@@ -38,12 +37,12 @@ const chartConfig = {
 	}
 };
 
-export function RevenueChart() {
+export function RevenueChart({ revenueData = [] }) {
 	const chartUid = useId().replace(/:/g, "");
 	const idAreaGradient = `revenue-area-grad-${chartUid}`;
 	const [periodDays, setPeriodDays] = useState(60);
 
-	const chartRows = useMemo(() => revenueChartDemo.slice(-periodDays), [periodDays]);
+	const chartRows = useMemo(() => revenueData.slice(-periodDays), [revenueData, periodDays]);
 
 	// Footer delta: first → last point in the active series (not calendar MoM).
 	const growthPct = useMemo(() => {
