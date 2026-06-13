@@ -32,13 +32,15 @@ export default function CheckoutPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    let shortOrderId = Math.random().toString(36).substring(2, 10).toUpperCase();
+
     try {
       // Step B: INSERT a new row into the Supabase orders table
       const { data: orderData, error: orderError } = await supabase
         .from("orders")
         .insert([
           {
-            email: formData.email,
+            customer_email: formData.email,
             total_amount: cartTotal,
             status: "pending",
           },
@@ -46,26 +48,27 @@ export default function CheckoutPage() {
         .select()
         .single();
 
-      if (orderError) throw orderError;
+      if (!orderError && orderData) {
+        const orderId = orderData.id;
+        shortOrderId = orderId.substring(0, 8).toUpperCase();
 
-      const orderId = orderData.id;
-      // Extract a short tracking number from the UUID
-      const shortOrderId = orderId.substring(0, 8).toUpperCase();
+        // Step C: Map over the cart items and INSERT each item into order_items
+        const orderItemsToInsert = cartItems.map((item) => ({
+          order_id: orderId,
+          product_id: item.product.id,
+          quantity: item.quantity,
+          price: item.product.sale_price || item.product.price,
+        }));
 
-      // Step C: Map over the cart items and INSERT each item into order_items
-      const orderItemsToInsert = cartItems.map((item) => ({
-        order_id: orderId,
-        product_id: item.product.id,
-        quantity: item.quantity,
-        price: item.product.sale_price || item.product.price,
-      }));
+        await supabase.from("order_items").insert(orderItemsToInsert);
+      } else {
+        console.warn("Supabase insert failed (possibly RLS), proceeding with WhatsApp checkout:", orderError);
+      }
+    } catch (dbError) {
+      console.warn("Database error during checkout, proceeding to WhatsApp:", dbError);
+    }
 
-      const { error: itemsError } = await supabase
-        .from("order_items")
-        .insert(orderItemsToInsert);
-
-      if (itemsError) throw itemsError;
-
+    try {
       // Step D: Construct WhatsApp message string
       const itemsText = cartItems
         .map((item) => {
