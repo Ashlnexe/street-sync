@@ -110,7 +110,7 @@ export default function Page() {
         <section className="w-full px-4 md:px-8 py-8 mb-12">
           <div className="flex md:grid md:grid-cols-5 gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-4 px-4 md:px-0 md:mx-0">
             {marqueeProducts.map((product, idx) => (
-              <div key={idx} className="min-w-[160px] shrink-0 md:min-w-0 md:shrink snap-start">
+              <div key={idx} className="w-[45vw] sm:w-[40vw] md:w-auto shrink-0 md:shrink snap-start">
                 <ProductCard product={product} onQuickView={(p) => setSelectedProduct(p)} isSquare={true} />
               </div>
             ))}
