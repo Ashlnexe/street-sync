@@ -70,28 +70,18 @@ export default function MarqueeNav({ initialActive = 2 }) {
       </div>
 
       {/* Nav Section */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "20px 20px",
-          borderBottom: "none",
-        }}
-      >
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-5 py-5 gap-6 md:gap-0 w-full overflow-hidden">
         <div
           ref={wrapRef}
+          className="flex overflow-x-auto whitespace-nowrap hide-scrollbar w-full"
           style={{
-            flex: 1,
-            overflow: "hidden",
             position: "relative",
           }}
         >
           <div
             ref={trackRef}
+            className="flex items-center"
             style={{
-              display: "flex",
-              alignItems: "center",
               transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
             }}
           >
@@ -99,6 +89,7 @@ export default function MarqueeNav({ initialActive = 2 }) {
               <span
                 key={name}
                 data-cat
+                className="shrink-0 flex items-center"
                 onClick={() => setActiveIdx(i)}
                 style={{
                   ...getItemStyle(i),
@@ -108,9 +99,6 @@ export default function MarqueeNav({ initialActive = 2 }) {
                   padding: "0 2rem",
                   cursor: "pointer",
                   userSelect: "none",
-                  flexShrink: 0,
-                  display: "flex",       // Flex ensures the arrow and text align correctly
-                  alignItems: "center",
                 }}
               >
                 {i === activeIdx && (
