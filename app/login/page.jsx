@@ -2,12 +2,17 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createBrowserClient } from '@supabase/ssr';
 import { Lock, Mail, ArrowRight, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,10 +60,8 @@ function LoginContent() {
 
       setSuccessMsg("Access granted. Syncing dashboard...");
       
-      // Delay slightly for premium feedback feel
-      setTimeout(() => {
-        window.location.href = nextPath;
-      }, 1000);
+      // Hard redirect to bypass Next.js client router and force a full server request
+      window.location.href = nextPath;
 
     } catch (err) {
       setErrorMsg("An unexpected error occurred. Please try again.");

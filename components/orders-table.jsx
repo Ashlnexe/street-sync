@@ -1,4 +1,7 @@
-import { createClient } from "@/lib/supabase/server";
+"use client";
+
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -15,31 +18,63 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-export async function OrdersTable() {
-  let orders = [];
-  let errorMsg = null;
+export function OrdersTable({ refreshKey = 0 }) {
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [updatingId, setUpdatingId] = useState(null);
 
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(50);
+  useEffect(() => {
+    async function fetchOrders() {
+      setIsLoading(true);
+      setErrorMsg(null);
+      try {
+        const { data, error } = await supabase
+          .from("orders")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(50);
 
-    if (error) {
-      console.error("[OrdersTable] fetch error:", error.message);
-      errorMsg = error.message;
-    } else {
-      orders = data || [];
+        if (error) throw error;
+        setOrders(data || []);
+      } catch (err) {
+        console.error("[OrdersTable] fetch error:", err);
+        setErrorMsg(err.message || "Failed to fetch orders.");
+      } finally {
+        setIsLoading(false);
+      }
     }
-  } catch (err) {
-    console.error("[OrdersTable] unexpected error:", err);
-    errorMsg = err.message || "An unexpected error occurred.";
-  }
+    fetchOrders();
+  }, [refreshKey]);
 
-  // Status badge helpers with curated streetwear palette accents
+  const updateOrderStatus = async (orderId, newStatus) => {
+    setUpdatingId(orderId);
+    try {
+      const { error } = await supabase
+        .from("orders")
+        .update({ status: newStatus })
+        .eq("id", orderId);
+
+      if (error) throw error;
+      
+      // Optimistic update
+      setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
+    } catch (err) {
+      console.error("[OrdersTable] status update error:", err);
+      alert("Failed to update status: " + err.message);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
   const getStatusBadge = (status) => {
     const s = (status || "").toLowerCase();
     if (s === "completed" || s === "paid" || s === "delivered" || s === "success") {
@@ -105,7 +140,11 @@ export async function OrdersTable() {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0 md:p-6 md:pt-0">
-        {errorMsg ? (
+        {isLoading ? (
+          <div className="p-10 flex justify-center text-neutral-500">
+            <Loader2 className="w-6 h-6 animate-spin" />
+          </div>
+        ) : errorMsg ? (
           <div className="p-6 text-sm text-red-600 dark:text-red-400 bg-red-50/50 dark:bg-red-950/10 border border-red-200/50 dark:border-red-900/50 rounded-lg mx-6 mb-6">
             Failed to fetch live orders from database: {errorMsg}
           </div>
@@ -122,7 +161,7 @@ export async function OrdersTable() {
                   <TableHead className="font-bold text-neutral-800 dark:text-neutral-200">Customer Email</TableHead>
                   <TableHead className="font-bold text-neutral-800 dark:text-neutral-200">Date</TableHead>
                   <TableHead className="font-bold text-right text-neutral-800 dark:text-neutral-200">Amount</TableHead>
-                  <TableHead className="font-bold text-center w-[120px] text-neutral-800 dark:text-neutral-200">Status</TableHead>
+                  <TableHead className="font-bold text-center w-[160px] text-neutral-800 dark:text-neutral-200">Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -145,7 +184,21 @@ export async function OrdersTable() {
                         {formatAmount(order.total_amount)}
                       </TableCell>
                       <TableCell className="text-center">
-                        {getStatusBadge(order.status)}
+                        <DropdownMenu>
+                          <DropdownMenuTrigger render={<button className="outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full w-full" disabled={updatingId === order.id} />}>
+                            {updatingId === order.id ? (
+                                <Loader2 className="w-4 h-4 animate-spin mx-auto text-neutral-500" />
+                            ) : (
+                                getStatusBadge(order.status)
+                            )}
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => updateOrderStatus(order.id, 'pending')}>Mark as Pending</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => updateOrderStatus(order.id, 'processing')}>Mark as Processing</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => updateOrderStatus(order.id, 'completed')}>Mark as Completed</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => updateOrderStatus(order.id, 'cancelled')} className="text-red-600">Mark as Cancelled</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </TableCell>
                     </TableRow>
                   );

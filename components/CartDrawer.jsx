@@ -126,24 +126,13 @@ export default function CartDrawer() {
             <p className="text-xs text-gray-500 mb-6 text-center">
               Taxes and shipping calculated at checkout
             </p>
-            <button 
-              onClick={() => {
-                let message = "Hi Street Sync! I would like to place an order:\n\n";
-                cartItems.forEach((item, index) => {
-                  message += `${index + 1}. ${item.product.title} (Size: ${item.size})\n`;
-                  message += `   Qty: ${item.quantity} x ${formatPrice(item.product.price)}\n`;
-                });
-                message += `\n*Total: ${formatPrice(cartTotal)}*\n`;
-                message += "\nPlease let me know how to proceed with payment.";
-                
-                const encodedMessage = encodeURIComponent(message);
-                // using a placeholder Indonesian phone number
-                window.open(`https://wa.me/6281234567890?text=${encodedMessage}`, "_blank");
-              }}
-              className="w-full bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm tracking-wide uppercase py-4 transition-colors"
+            <Link 
+              href="/checkout"
+              onClick={() => setIsCartOpen(false)}
+              className="block w-full text-center bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm tracking-wide uppercase py-4 transition-colors"
             >
-              Checkout via WhatsApp
-            </button>
+              Proceed to Checkout
+            </Link>
           </div>
         )}
         

@@ -58,9 +58,6 @@ export function useProductsByCategory(category) {
   return { products, loading, error };
 }
 
-/**
- * Fetches a single product by slug for use in Client Components.
- */
 export function useProductBySlug(slug) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);

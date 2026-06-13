@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useProductBySlug } from "@/hooks/use-products";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ProductPage({ params }) {
   const unwrappedParams = use(params);
@@ -14,6 +15,7 @@ export default function ProductPage({ params }) {
   const [selectedSize, setSelectedSize] = useState("");
   
   const { addToCart } = useCart();
+  const router = useRouter();
 
   const { product, loading } = useProductBySlug(slug);
 
@@ -44,6 +46,11 @@ export default function ProductPage({ params }) {
 
   const handleAddToCart = () => {
     addToCart(product, selectedSize || "OS", quantity);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, selectedSize || "OS", quantity);
+    router.push("/checkout");
   };
 
   return (
@@ -137,7 +144,10 @@ export default function ProductPage({ params }) {
               Add to cart
             </button>
           </div>
-          <button className="hidden lg:block w-full bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm tracking-wide uppercase py-4 transition-colors mb-8">
+          <button 
+            onClick={handleBuyNow}
+            className="hidden lg:block w-full bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm tracking-wide uppercase py-4 transition-colors mb-8"
+          >
             Buy it now
           </button>
 

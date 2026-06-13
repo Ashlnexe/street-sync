@@ -1,19 +1,25 @@
+"use client";
+
+import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { Dashboard } from "@/components/dashboard";
 import { OrdersTable } from "@/components/orders-table";
-
-export const dynamic = "force-dynamic";
-
-export const metadata = {
-  title: "Admin Dashboard — Street Sync™",
-  description: "Internal admin panel for managing Street Sync inventory, orders, and analytics.",
-};
+import { InventoryTable } from "@/components/inventory-table";
 
 export default function AdminPage() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const triggerRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   return (
     <AppShell>
-      <Dashboard />
-      <OrdersTable />
+      <div className="space-y-6">
+        <Dashboard refreshKey={refreshKey} onDataChanged={triggerRefresh} />
+        <OrdersTable refreshKey={refreshKey} />
+        <InventoryTable refreshKey={refreshKey} onProductDeleted={triggerRefresh} />
+      </div>
     </AppShell>
   );
 }

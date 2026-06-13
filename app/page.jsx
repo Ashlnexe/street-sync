@@ -19,6 +19,8 @@ export default function Page() {
   const [mounted, setMounted] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const { products, loading } = useProducts();
+
   useEffect(() => {
     setMounted(true);
     setLoaded(true);
@@ -26,56 +28,54 @@ export default function Page() {
 
   if (!mounted) return null;
 
-  const { products, loading } = useProducts();
-
   const newInProducts = products.filter(p => p.tags?.includes("NEW IN"));
   const bestSellers = products.filter(p => p.tags?.includes("BESTSELLER"));
   const endOfSeason = products.filter(p => p.tags?.includes("END OF SEASON"));
 
-  const baseMarquee = [
+  const fallbackMarquee = [
     {
       id: "g1",
-      slug: "fell-in-love",
-      title: "FELL IN LOVE IN OCT V2 WASHED OVERSIZED TEE",
-      salePrice: "₹ 1,799.00",
-      rating: "4.7",
-      badges: ["BESTSELLER", "BACK IN STOCK"],
-      image: "/products/product-50.jpeg",
+      slug: "static-heavy-zip-hoodie",
+      title: "Static Heavy Zip-Up Hoodie",
+      salePrice: "₹ 0.00",
+      rating: "4.9",
+      badges: ["BESTSELLER", "LAST FEW SIZES"],
+      image: "/products/product-1.jpeg",
     },
     {
       id: "g2",
-      slug: "music-money-fashion",
-      title: "MUSIC MONEY FASHION WAFFLE OVERSIZED FULL SLEEVE",
-      salePrice: "₹ 1,699.00",
-      originalPrice: "₹ 2,199.00",
-      rating: "4.7",
-      badges: ["BESTSELLER", "ALL SEASON", "SAVE 23%"],
-      image: "/products/product-53.jpeg",
-      hoverImage: "/products/product-53-hover.jpeg",
+      slug: "noise-waffle-full-sleeve",
+      title: "Noise Complaint Waffle Full Sleeve",
+      salePrice: "₹ 0.00",
+      rating: "4.8",
+      badges: ["BESTSELLER"],
+      image: "/products/product-2.jpeg",
     },
     {
       id: "g3",
-      slug: "less-i-know",
-      title: "THE LESS I KNOW THE BETTER OVERSIZED TEE",
-      salePrice: "₹ 1,499.00",
-      rating: "4.7",
-      badges: [],
-      image: "/products/product-56.jpeg",
+      slug: "reverb-baby-tee",
+      title: "Reverb Cropped Baby Tee",
+      salePrice: "₹ 0.00",
+      rating: "4.9",
+      badges: ["BESTSELLER", "RESTOCKED"],
+      image: "/products/product-3.jpeg",
+      hoverImage: "/products/product-3-hover.jpeg",
     },
     {
       id: "g4",
-      slug: "90210-waffle",
-      title: "90210 WAFFLE OVERSIZED FULL SLEEVE",
-      salePrice: "₹ 1,799.00",
-      originalPrice: "₹ 1,999.00",
-      rating: "4.5",
-      badges: ["BESTSELLER", "BACK IN STOCK", "SAVE 10%"],
-      image: "/products/product-57.jpeg",
+      slug: "midnight-echo-oversized",
+      title: "Midnight Echo Oversized Tee",
+      salePrice: "₹ 0.00",
+      rating: "5",
+      badges: ["BESTSELLER", "BACK IN STOCK"],
+      image: "/products/product-45.jpeg",
     }
   ];
 
+  const baseMarquee = products && products.length > 0 ? products : fallbackMarquee;
+
   const marqueeProducts = Array.from({ length: 15 }, (_, i) => ({
-    ...baseMarquee[i % 4],
+    ...baseMarquee[i % baseMarquee.length],
     id: `g${i + 1}`,
   }));
 
@@ -117,7 +117,7 @@ export default function Page() {
         <ShopTheLook />
 
         {/* STICKY BEST SELLERS */}
-        <StickyBestSellers />
+        <StickyBestSellers bestSellers={bestSellers} />
 
         {/* ========================================== */}
         {/* CATEGORY SHOWCASE                          */}

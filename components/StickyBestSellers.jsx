@@ -1,9 +1,7 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-import { getProductsByTag } from "@/lib/products";
 
-export default async function StickyBestSellers() {
-  const bestSellers = await getProductsByTag("BESTSELLER");
+export default function StickyBestSellers({ bestSellers = [] }) {
 
   // Duplicate them so there are enough to demonstrate scrolling
   const scrollProducts = [...bestSellers, ...bestSellers, ...bestSellers];

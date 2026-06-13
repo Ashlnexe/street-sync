@@ -1,40 +1,113 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import { CategoryRankChart } from "@/components/category-rank-chart";
 import { QuickActions } from "@/components/quick-actions";
 import { RefundReturnRateChart } from "@/components/refund-return-rate-chart";
 import { RevenueChart } from "@/components/revenue-chart";
 import { DashboardStats } from "@/components/stats";
-import {
-  getDashboardStats,
-  getRevenueChartData,
-  getDashboardCategoryData,
-} from "@/lib/dashboard";
 
-export async function Dashboard() {
-  // All three queries run in parallel on the server — zero client JS
-  const [stats, revenueData, categoryData] = await Promise.all([
-    getDashboardStats(),
-    getRevenueChartData(),
-    getDashboardCategoryData(),
-  ]);
+export function Dashboard({ refreshKey = 0, onDataChanged }) {
+  const [stats, setStats] = useState([]);
+  const [revenueData, setRevenueData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
-  // Backfill the "Total products" stat with the real count
-  const totalProducts = categoryData.reduce(
-    (sum, cat) => sum + Math.round((cat.share / 100) * categoryData.length * 10),
-    0
-  );
-  const statsWithProducts = stats.map((s) =>
-    s.label === "Total products"
-      ? { ...s, value: String(categoryData.reduce((n, c) => n + (c.share > 0 ? 1 : 0), 0) * 7) }
-      : s
-  );
+  useEffect(() => {
+    async function loadDashboardData() {
+      // 1. Fetch Orders
+      const now = new Date();
+      const thirtyDaysAgo = new Date(now - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const sixtyDaysAgo = new Date(now - 60 * 24 * 60 * 60 * 1000).toISOString();
+
+      const { data: currentOrders } = await supabase
+        .from("orders")
+        .select("total_amount, created_at")
+        .eq("status", "completed")
+        .gte("created_at", thirtyDaysAgo);
+
+      const { data: priorOrders } = await supabase
+        .from("orders")
+        .select("total_amount")
+        .eq("status", "completed")
+        .gte("created_at", sixtyDaysAgo)
+        .lt("created_at", thirtyDaysAgo);
+
+      // Aggregations
+      const sumAmount = (rows) => (rows ?? []).reduce((s, r) => s + Number(r.total_amount), 0);
+      const currentRevenue = sumAmount(currentOrders);
+      const priorRevenue = sumAmount(priorOrders);
+      const currCount = (currentOrders || []).length;
+      const priorCount = (priorOrders || []).length;
+      const currAOV = currCount > 0 ? currentRevenue / currCount : 0;
+      const priorAOV = priorCount > 0 ? priorRevenue / priorCount : 0;
+
+      const pctDelta = (curr, prev) => prev === 0 ? 0 : Number((((curr - prev) / prev) * 100).toFixed(1));
+
+      // 2. Fetch Products
+      const { data: products } = await supabase.from("products").select("category");
+      const productCount = (products || []).length;
+
+      // Calculate Category Data
+      const catCounts = {};
+      (products || []).forEach(p => {
+        catCounts[p.category] = (catCounts[p.category] || 0) + 1;
+      });
+      const catData = Object.entries(catCounts).map(([cat, count]) => ({
+        category: cat.charAt(0).toUpperCase() + cat.slice(1),
+        share: Math.round((count / productCount) * 100),
+      }));
+
+      // Generate Revenue Chart Data
+      const byDate = {};
+      (currentOrders || []).forEach(row => {
+        const d = row.created_at.slice(0, 10);
+        byDate[d] = (byDate[d] || 0) + Number(row.total_amount);
+      });
+      const revChart = Object.entries(byDate).map(([date, revenue]) => ({ date, revenue })).sort((a,b) => a.date.localeCompare(b.date));
+
+      setStats([
+        {
+          label: "Total revenue",
+          value: `₹ ${currentRevenue.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+          delta: pctDelta(currentRevenue, priorRevenue),
+          hint: "vs prior 30 days",
+        },
+        {
+          label: "Orders",
+          value: currCount.toLocaleString("en-IN"),
+          delta: pctDelta(currCount, priorCount),
+          hint: "vs prior 30 days",
+        },
+        {
+          label: "Average order value",
+          value: `₹ ${currAOV.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+          delta: pctDelta(currAOV, priorAOV),
+          hint: "vs prior 30 days",
+        },
+        {
+          label: "Total products",
+          value: String(productCount),
+          delta: 0,
+          hint: "in catalogue",
+        },
+      ]);
+      setCategoryData(catData);
+      
+      // Fallback if empty so chart doesn't break
+      setRevenueData(revChart.length > 0 ? revChart : [{ date: new Date().toISOString().slice(0,10), revenue: 0 }]);
+    }
+    
+    loadDashboardData();
+  }, [refreshKey]);
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <DashboardStats stats={statsWithProducts} />
+      {stats.length > 0 ? <DashboardStats stats={stats} /> : <div className="col-span-full h-32 animate-pulse bg-neutral-100 dark:bg-neutral-800 rounded-xl" />}
       <RevenueChart revenueData={revenueData} />
       <RefundReturnRateChart />
       <CategoryRankChart data={categoryData} />
-      <QuickActions />
+      <QuickActions onProductAdded={onDataChanged} />
     </div>
   );
 }

@@ -3,11 +3,13 @@ import { X, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function QuickViewModal({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const { addToCart } = useCart();
+  const router = useRouter();
   
   useEffect(() => {
     if (product?.sizes?.length > 0) {
@@ -20,6 +22,12 @@ export default function QuickViewModal({ product, isOpen, onClose }) {
   const handleAddToCart = () => {
     addToCart(product, selectedSize || "OS", quantity);
     onClose(); // Optional: close modal on add, CartDrawer will open automatically
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, selectedSize || "OS", quantity);
+    onClose();
+    router.push("/checkout");
   };
 
   return (
@@ -114,7 +122,10 @@ export default function QuickViewModal({ product, isOpen, onClose }) {
           </div>
 
           {/* Buy it Now */}
-          <button className="w-full bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm uppercase py-4 rounded-md transition-colors">
+          <button 
+            onClick={handleBuyNow}
+            className="w-full bg-[#1a1a1a] hover:bg-black text-white font-bold text-sm uppercase py-4 rounded-md transition-colors"
+          >
             Buy it now
           </button>
         </div>
