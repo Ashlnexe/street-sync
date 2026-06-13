@@ -28,36 +28,35 @@ export default function Page() {
 
   if (!mounted) return null;
 
-  const newInProducts = products.filter(p => p.tags?.includes("NEW IN"));
-  const bestSellers = products.filter(p => p.tags?.includes("BESTSELLER"));
-  const endOfSeason = products.filter(p => p.tags?.includes("END OF SEASON"));
-
-  const fallbackMarquee = [
+  const fallbackProducts = [
     {
       id: "g1",
       slug: "static-heavy-zip-hoodie",
       title: "Static Heavy Zip-Up Hoodie",
-      salePrice: "₹ 0.00",
+      salePrice: "₹ 1,799.00",
       rating: "4.9",
       badges: ["BESTSELLER", "LAST FEW SIZES"],
+      tags: ["BESTSELLER"],
       image: "/products/product-1.jpeg",
     },
     {
       id: "g2",
       slug: "noise-waffle-full-sleeve",
       title: "Noise Complaint Waffle Full Sleeve",
-      salePrice: "₹ 0.00",
+      salePrice: "₹ 1,699.00",
       rating: "4.8",
       badges: ["BESTSELLER"],
+      tags: ["BESTSELLER"],
       image: "/products/product-2.jpeg",
     },
     {
       id: "g3",
       slug: "reverb-baby-tee",
       title: "Reverb Cropped Baby Tee",
-      salePrice: "₹ 0.00",
+      salePrice: "₹ 1,499.00",
       rating: "4.9",
-      badges: ["BESTSELLER", "RESTOCKED"],
+      badges: ["NEW IN", "RESTOCKED"],
+      tags: ["NEW IN"],
       image: "/products/product-3.jpeg",
       hoverImage: "/products/product-3-hover.jpeg",
     },
@@ -65,17 +64,22 @@ export default function Page() {
       id: "g4",
       slug: "midnight-echo-oversized",
       title: "Midnight Echo Oversized Tee",
-      salePrice: "₹ 0.00",
+      salePrice: "₹ 1,799.00",
       rating: "5",
-      badges: ["BESTSELLER", "BACK IN STOCK"],
+      badges: ["END OF SEASON", "BACK IN STOCK"],
+      tags: ["END OF SEASON"],
       image: "/products/product-45.jpeg",
     }
   ];
 
-  const baseMarquee = products && products.length > 0 ? products : fallbackMarquee;
+  const sourceProducts = products && products.length > 0 ? products : fallbackProducts;
+
+  const newInProducts = sourceProducts.filter(p => p.tags?.includes("NEW IN") || p.badges?.includes("NEW IN"));
+  const bestSellers = sourceProducts.filter(p => p.tags?.includes("BESTSELLER") || p.badges?.includes("BESTSELLER"));
+  const endOfSeason = sourceProducts.filter(p => p.tags?.includes("END OF SEASON") || p.badges?.includes("END OF SEASON"));
 
   const marqueeProducts = Array.from({ length: 15 }, (_, i) => ({
-    ...baseMarquee[i % baseMarquee.length],
+    ...sourceProducts[i % sourceProducts.length],
     id: `g${i + 1}`,
   }));
 
