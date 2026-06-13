@@ -24,13 +24,17 @@ export default function StickyBestSellers({ bestSellers = [] }) {
 
         {/* Right Side: Scrolling Products */}
         <div className="w-full lg:w-1/2 p-4 md:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-4 hide-scrollbar">
             {scrollProducts.map((product, idx) => (
-              <ProductCard 
+              <div 
                 key={idx} 
-                product={product} 
-                isSquare={true} 
-              />
+                className="w-[45vw] sm:w-[40vw] md:w-64 shrink-0 snap-start"
+              >
+                <ProductCard 
+                  product={product} 
+                  isSquare={true} 
+                />
+              </div>
             ))}
           </div>
         </div>
